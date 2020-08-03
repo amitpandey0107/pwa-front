@@ -1,0 +1,238 @@
+body{
+    font-family: 'Open Sans', sans-serif;
+}
+.loginWrapper {
+    background-color: #1bbc9b;
+    height: 100vh;
+    width: 100%;
+}
+.loginbox {
+    padding: 60px;
+    height: 100vh;
+    position: relative;
+}
+.loginbox h1 {
+    color: #ffffff;
+    text-align: center;
+    font-weight: 700;
+    font-size: 54px;
+}
+.loginbox h3 {
+    color: #e0efe0;
+    text-align: center;
+    font-size: 21px;
+}
+.btnlogin {
+    background-color: #ffffff;
+    color: #1bbc9b;
+    text-align: center;
+    outline: none;
+    border: 1px solid #ffffff;
+    font-size: 18px;
+    font-weight: 600;
+    width: 100%;
+    height: 45px;
+    border-radius: 5px;
+}
+.loginbox .form-control {
+    height: 45px;
+    border-radius: 5px;
+}
+.loginbox .form-group {
+    margin-bottom: 21px;
+    position: relative;
+}
+.loginfield {    
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 65%;
+
+}
+.registerWrap .loginbox{
+    padding: 10px 60px;
+}
+.registerWrap {
+    text-align: center;
+}
+.registerWrap h1 {
+    margin-bottom: 24px;
+}
+.registerWrap .loginfield {    
+    position: relative;
+    top: initial;
+    left: initial;
+    transform: initial;
+    width: 75%;
+    margin: 0 auto;
+}
+.registerWrap h3 {
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+.registerWrap sub {
+    bottom: auto;
+    margin-top: -6px;
+    display: block;
+    color: #fff;
+    font-size: 12px;
+    margin-bottom: 25px;
+}
+.btnregister {
+    background: #ffffff;
+    outline: none;
+    border: #ffffff;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 50px;
+    display: inline-block;
+}
+.btnregister:focus {
+    outline: none;
+    border: none;
+}
+.btnregister span {
+    height: 14px;
+    width: 14px;
+    border-top: 2px solid #1bbc9b;
+    border-right: 2px solid #1bbc9b;
+    display: inline-block;
+    transform: rotate(45deg);
+    position: relative;
+    left: -2px;
+    top: 1px;
+}
+.textright {
+    text-align: right;
+}
+
+.radiowrap {
+    position: relative;
+    display: inline-block;
+    margin: 0px 17px;
+    width: 100px;
+    height: 46px;
+}
+
+.radiowrap input[type="radio"] {
+    transform: scale(4.5, 2.5);
+    outline: none;
+    position: relative;
+    opacity: 0;
+    top: 7px;
+    left: 0;
+    z-index: 9;
+}
+.radiowrap .radiolbl {
+    background: #ffffff;
+    border: 1px solid #ccc;
+    height: 40px;
+    width: 100px;
+    position: absolute;
+    left: 0;
+    color: #000;
+    font-size: 18px;
+    line-height: 37px;
+    border-radius: 5px;
+}
+.radiowrap input[type="radio"]:checked +  .radiolbl{
+    background-color: #777;
+    border-color: #777;
+    color: #ffffff;
+}
+
+.sublinks {
+    text-align: center;
+    margin-top: 40px;
+    color: #efefef;
+}
+.sublinks .link {
+    color: #333;
+    text-decoration: underline;
+}
+
+.mainmenu {
+    background: #ffffff;
+    box-shadow: 0px 0px 12px -4px rgba(0,0,0,0.3);
+    padding: 15px 0;
+}
+.mainmenu ul{
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+.mainmenu ul li {
+    list-style-type: none;
+    display: inline-block;
+    padding: 0 50px;
+
+}
+.mainmenu ul li a {
+    text-decoration: none;
+    color: #333;
+    display: block;
+    font-weight: 500;
+}
+.mainmenu ul li a:hover {
+    color: #1bbc9b;
+}
+
+.maincontent {
+    margin-top: 30px;
+}
+.clebBox {
+    position: relative;
+    margin-bottom: 20px;
+    box-shadow: 0px 2px 7px -2px rgba(0,0,0,0.5);
+}
+.clebBox .clebImg {
+    height: 350px;
+    width: 350px;
+    margin-bottom: 10px;
+}
+.clebBox .clebImg img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    object-position: top;
+}
+.clebBox h3 {
+    text-transform: uppercase;
+    color: #333;
+    margin-bottom: 10px;
+    font-size: 18px;
+    font-weight: 700;;
+}
+.clebBox .info {
+    padding: 15px;
+}
+.clebBox .info p{
+    margin-bottom: 10px;
+}
+.category strong {
+    margin-right: 5px;
+}
+
+.form-group .help-block {
+    color: red;
+}
+.registerWrap .loginbox h1 {
+    font-size: 40px;
+}
+.registerWrap .loginbox .form-group {
+    margin-bottom: 15px;
+}
+.registerWrap .sublinks {
+    margin-top: 20px;
+}
+
+
+/* Loader */
+.loader {
+    position: absolute;
+    right: -41px;
+    top: 7px;
+}

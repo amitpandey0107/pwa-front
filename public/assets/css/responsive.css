@@ -1,0 +1,25 @@
+@media only screen and (max-width:1200px) {
+    .clebBox .clebImg {
+        height: 270px;
+        width: 100%;
+    }
+    .mainmenu ul li {
+        padding: 0 30px;
+    }
+}
+
+@media only screen and (max-width:971px) {
+}
+
+@media only screen and (max-width:771px) {
+}
+
+@media only screen and (max-width:579px) {
+    .clebBox .clebImg {
+        height: 400px;
+        width: 100%;
+    }
+    .mainmenu ul li {
+        padding: 0 15px;
+    }
+}

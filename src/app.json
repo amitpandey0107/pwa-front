@@ -1,0 +1,6 @@
+{
+    "name": "PWA",
+    "displayName": "PWA",
+    "api_base_url_local": "http://127.0.0.1:8000/api/",
+    "api_live_url": "http://farmar.arkasoftwares.co/api/"
+}
