@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { api_live_url as API_URL, api_base_url_local as LOCAL_URL } from '../../app.json';
-import { LOGIN_LOADING, LOGIN_ERROR, LOGIN_SUCCESS, LOGIN_RELOADING, AUTH_LOADING, AUTH_FAIL, AUTH_SUCCEED, AUTH_RELOAD } from '../constants/reduxConstants';
-import { AsyncStorage } from 'AsyncStorage';
+import { LOGIN_LOADING, LOGIN_ERROR, LOGIN_SUCCESS, AUTH_LOADING, AUTH_FAIL, AUTH_SUCCEED } from '../constants/reduxConstants';
 
 
 
@@ -19,10 +18,6 @@ const apiError = (payload) => ({
     payload
 });
 
-const authExpire = () => ({
-    type: 'AUTH_EXPIRE',
-
-});
 
 const authLoading = () => ({
     type: AUTH_LOADING
@@ -43,11 +38,9 @@ const authError = (payload) => ({
 
 
 export const LoginAction = (username, password) => async (dispatchEvent) => {
-    console.log(username, password);
     dispatchEvent(apiLoading());
     try {
-
-        axios.post(LOCAL_URL + "login",
+        axios.post(API_URL + "login",
             {
                 headers: {
                     'Access-Control-Allow-Origin': true,
@@ -60,8 +53,7 @@ export const LoginAction = (username, password) => async (dispatchEvent) => {
                 } else {
                     dispatchEvent(apiError(response));
                 }
-            }).catch((error) => {
-                console.log('Error in login', error)
+            }).catch((error) => {                
                 dispatchEvent(apiError(error));
             })
 
@@ -80,9 +72,6 @@ export const auth_action = () => async (dispatchEvent) => {
         var userToken = await localStorage.getItem('Token');
         var UserId = await localStorage.getItem('UserId');
         var userRole = await localStorage.getItem('role');
-        // var userToken = await localStorage.getItem('Token');
-        // var UserId = await localStorage.getItem('UserId');
-        // var userRole = await localStorage.getItem('role');
         if (userRole === null) {
             console.log('userRole null', userRole);
             dispatchEvent(authError({ error: "Please login", message: "please login" }));

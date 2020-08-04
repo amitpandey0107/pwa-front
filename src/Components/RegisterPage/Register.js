@@ -3,8 +3,7 @@ import { Link } from "react-router-dom";
 import { connect } from 'react-redux'
 import {RegisterAction}  from '../actions/RegisterAction';
 import { LOADING, SUCCESS, ERROR } from '../constants/misc';
-import { AsyncStorage } from 'AsyncStorage';
-import {history} from '../Helper/history';
+
 
 class Register extends Component {
     constructor(props) {
@@ -38,12 +37,12 @@ class Register extends Component {
     };
 
     static getDerivedStateFromProps(props, state) {
-        if (props.RegisterReducer.status == LOADING) {
+        if (props.RegisterReducer.status === LOADING) {
           return {
             status: "Please wait loading",
             isLoading: true,
           }
-        } else if (props.RegisterReducer.status == SUCCESS) {          
+        } else if (props.RegisterReducer.status === SUCCESS) {          
           alert('User Registered Successfully')
           return {
             waitingIndicator: false,
@@ -55,7 +54,7 @@ class Register extends Component {
             password: '',
             isLodaing: false
           };
-        } else if (props.RegisterReducer.status == ERROR) {
+        } else if (props.RegisterReducer.status === ERROR) {
           console.log(props.RegisterReducer.error.data.message)    
           return {
             isLodaing: false,
@@ -67,7 +66,7 @@ class Register extends Component {
       }
     
       componentDidUpdate() {
-        if (this.props.RegisterReducer.status == SUCCESS) {
+        if (this.props.RegisterReducer.status === SUCCESS) {
             this.props.history.push('/') 
         }
       }

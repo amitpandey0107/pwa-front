@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import { Link, Redirect } from 'react-router-dom';
-import { AsyncStorage } from 'AsyncStorage';
-import history from '../Helper/history';
+import { connect } from 'react-redux'
+import {GetPostAction} from '../actions/GetPostAction';
+import { LOADING, SUCCESS, ERROR } from '../constants/misc';
 
-export default class Home extends Component {
+class Home extends Component {
     constructor(props) {
         super(props);
 
@@ -14,19 +15,57 @@ export default class Home extends Component {
         }
 
         this.state = {
-            loggedIn
+            loggedIn,
+            allpost:[],
+            isLodaing:false,
+            waitingIndicator:false,
         }
     } 
     logout = async () => {
-        alert('hello');
         localStorage.removeItem('UserId');
         localStorage.removeItem('Token');
         localStorage.removeItem('role');
-        // await AsyncStorage.removeItem('UserId');
-        // await AsyncStorage.removeItem('Token');
-        // await AsyncStorage.removeItem('role');
         this.props.history.push('/') 
     }
+
+
+    componentDidMount() {
+        // let id =localStorage.getItem('UserId');
+        this.props.GetPostAction();
+      }
+
+    static getDerivedStateFromProps(props, state) {
+        // console.log('HERE=>',props);
+        if (props.GetPostReducer.status === LOADING) {
+          return { status: "Please wait loading", isLodaing: true, waitingIndicator: true }
+        } else if (props.GetPostReducer.status === SUCCESS) {
+          var post = [];
+          props.GetPostReducer.value.data.data.map((item, index) => {
+            post.push({
+              key: item.id,
+              user_id: item.user_id,
+              title: item.title,
+              description: item.description,
+              category: item.category,
+              image: item.image,
+              slug: item.slug,
+              status: item.status,
+            })
+    
+          })
+          props.reset_state_action();
+          return {
+            allpost: post,
+            waitingIndicator: false
+          };
+        } else if (props.GetPostReducer.status === ERROR) {
+          return { isLodaing: false, waitingIndicator: false };
+        } 
+        return null;
+    
+      }
+
+
     render() {
         if(this.state.loggedIn===false) {
             return <Redirect to="/" />
@@ -199,3 +238,11 @@ export default class Home extends Component {
         )
     }
 }
+
+
+const mapStateToProps = state => {
+    return {
+        GetPostReducer: state.GetPostReducer,
+    };
+};
+export default connect(mapStateToProps, { GetPostAction })(Home)
