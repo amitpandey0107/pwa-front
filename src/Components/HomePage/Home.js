@@ -3,6 +3,7 @@ import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux'
 import {GetPostAction} from '../actions/GetPostAction';
 import { LOADING, SUCCESS, ERROR } from '../constants/misc';
+const IMAGE_URL = 'http://pwa-backend.indivarinfolabs.com/public/uploads/posts/';
 
 class Home extends Component {
     constructor(props) {
@@ -53,7 +54,6 @@ class Home extends Component {
             })
     
           })
-          props.reset_state_action();
           return {
             allpost: post,
             waitingIndicator: false
@@ -70,7 +70,8 @@ class Home extends Component {
         if(this.state.loggedIn===false) {
             return <Redirect to="/" />
         }
-        return (
+        const {allpost} = this.state;
+        return (            
             <>
                 <div className="mainheader">
                     <div className="container">
@@ -94,141 +95,24 @@ class Home extends Component {
                     <div className="container">
                         <div className="row">
 
-                            <div className="col-sm-6 col-md-6 col-lg-4">
+                            {allpost.map((item, index) =>(
+                                <div className="col-sm-6 col-md-6 col-lg-4">
                                 <div className="clebBox">                                    
                                     <div className="clebImg">
-                                        <img src="./assets/images/black-panther.jpg" alt="name" />
+                                        <img src={IMAGE_URL+item.image} alt="name" />
                                     </div>                                    
                                     <div className="info">
-                                        <h3>Black Panthers</h3>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                        <h3> {item.title} </h3>
+                                        <p>{item.description}</p>
                                         <div className="category">
-                                            <strong>Category: </strong> Avengers
+                                            <strong>Category: </strong>{item.category}
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            ))}
 
-                            <div className="col-sm-6 col-md-6 col-lg-4">
-                                <div className="clebBox">                                    
-                                    <div className="clebImg">
-                                        <img src="./assets/images/captain-america.jpg" alt="name" />
-                                    </div>                                    
-                                    <div className="info">
-                                        <h3>Captain America</h3>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                                        <div className="category">
-                                            <strong>Category: </strong> Avengers
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="col-sm-6 col-md-6 col-lg-4">
-                                <div className="clebBox">                                    
-                                    <div className="clebImg">
-                                        <img src="./assets/images/doctor-strange.jpg" alt="name" />
-                                    </div>                                    
-                                    <div className="info">
-                                        <h3>Doctor Strange</h3>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                                        <div className="category">
-                                            <strong>Category: </strong> Avengers
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="col-sm-6 col-md-6 col-lg-4">
-                                <div className="clebBox">                                    
-                                    <div className="clebImg">
-                                        <img src="./assets/images/hulk.jpg" alt="name" />
-                                    </div>                                    
-                                    <div className="info">
-                                        <h3>Hulk</h3>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                                        <div className="category">
-                                            <strong>Category: </strong> Avengers
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="col-sm-6 col-md-6 col-lg-4">
-                                <div className="clebBox">                                    
-                                    <div className="clebImg">
-                                        <img src="./assets/images/iron-man.jpg" alt="name" />
-                                    </div>                                    
-                                    <div className="info">
-                                        <h3>Iron Man</h3>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                                        <div className="category">
-                                            <strong>Category: </strong> Avengers
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="col-sm-6 col-md-6 col-lg-4">
-                                <div className="clebBox">                                    
-                                    <div className="clebImg">
-                                        <img src="./assets/images/spider-man.jpg" alt="name" />
-                                    </div>                                    
-                                    <div className="info">
-                                        <h3>Spider Man</h3>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                                        <div className="category">
-                                            <strong>Category: </strong> Avengers
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="col-sm-6 col-md-6 col-lg-4">
-                                <div className="clebBox">                                    
-                                    <div className="clebImg">
-                                        <img src="./assets/images/thor.jpg" alt="name" />
-                                    </div>                                    
-                                    <div className="info">
-                                        <h3>Thor</h3>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                                        <div className="category">
-                                            <strong>Category: </strong> Avengers
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="col-sm-6 col-md-6 col-lg-4">
-                                <div className="clebBox">                                    
-                                    <div className="clebImg">
-                                        <img src="./assets/images/black-widow.jpg" alt="name" />
-                                    </div>                                    
-                                    <div className="info">
-                                        <h3>Black Widow</h3>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                                        <div className="category">
-                                            <strong>Category: </strong> Avengers
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="col-sm-6 col-md-6 col-lg-4">
-                                <div className="clebBox">                                    
-                                    <div className="clebImg">
-                                        <img src="./assets/images/captain-marvals.jpg" alt="name" />
-                                    </div>                                    
-                                    <div className="info">
-                                        <h3>Captain Marvals</h3>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                                        <div className="category">
-                                            <strong>Category: </strong> Avengers
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
+                            
 
                         </div>
                     </div>

@@ -25,15 +25,15 @@ const apiError = (payload) => ({
 export const GetPostAction = () => async (dispatchEvent) => {       
     dispatchEvent(apiLoading());   
     var bodyFormData = new FormData();
+    let token  = localStorage.getItem('Token');
     // bodyFormData.append('user_id', id);  
-    AsyncStorage.getItem('Token').then((token) => {        
+    // AsyncStorage.getItem('Token').then((token) => {        
         try {
-            console.log(token)
+            console.log('TOKEN=>',token)
             axios({
                 method: 'get',
                 url: API_URL + "getallpost",
-                headers: {
-                    "Access-Control-Allow-Origin":  "*",                   
+                headers: {                                    
                     'Authorization': 'Bearer ' + token,
                     'Content-Type': 'application/x-www-form-urlencoded'                
                 }
@@ -55,5 +55,5 @@ export const GetPostAction = () => async (dispatchEvent) => {
             dispatchEvent(apiError(error));
         }
 
-    })
+    // })
 };
