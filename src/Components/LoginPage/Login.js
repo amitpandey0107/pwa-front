@@ -2,9 +2,10 @@ import React, { Component } from 'react'
 import { Link, Redirect } from "react-router-dom";
 import { connect } from 'react-redux'
 import { LoginAction, auth_action } from '../actions/LoginAction';
+import { ResetStateAction } from '../actions/ResetStateAction';
 import { LOADING, SUCCESS, ERROR } from '../constants/misc';
-import { AsyncStorage } from 'AsyncStorage';
-import {history} from '../Helper/history';
+import ReactNotification, { store } from 'react-notifications-component';
+import 'react-notifications-component/dist/theme.css';
 
 
 class Login extends Component {
@@ -13,7 +14,7 @@ class Login extends Component {
         super(props)
         const token = localStorage.getItem('UserId');
         let loggedIn = true;
-        if (token==null) {
+        if (token == null) {
             loggedIn = false;
         }
         this.state = {
@@ -24,6 +25,11 @@ class Login extends Component {
             submitted: false,
             status: '',
         }
+    }
+
+
+    componentDidMount() {
+
     }
 
     handleLoginForm = async (event) => {
@@ -41,17 +47,7 @@ class Login extends Component {
         this.setState({ [targetName]: targetValue })
     };
 
-    // validate = (text) => {
-    //     let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-    //     if (reg.test(text) === false) {
-    //         return false;
-    //     } else {
-    //         return true;
-    //     }
-    // }
-
     static getDerivedStateFromProps(props, state) {
-        console.log("new props in login ", props);
         if (props.LoginReducer.status === LOADING) {
             return { status: "Please wait loading", isLoading: true }
         } else if (props.LoginReducer.status === SUCCESS) {
@@ -65,6 +61,7 @@ class Login extends Component {
                 return { status: "success", isLoading: false }
             }
         } else if (props.LoginReducer.status === ERROR) {
+            props.ResetStateAction();
             return { status: "error", isLoading: false }
         }
         return null;
@@ -72,42 +69,77 @@ class Login extends Component {
 
     componentDidUpdate(prevProps, prevState) {
         if (this.props.LoginReducer.status === LOADING) {
-            console.log('please wait...')
         } else if (this.props.LoginReducer.status === ERROR) {
-            console.log('failed');
+            store.addNotification({
+                title: "Error!",
+                message: "Login Unsuccessful",
+                type: "danger",
+                insert: "top",
+                container: "top-right",
+                animationIn: ["animated", "fadeIn"],
+                animationOut: ["animated", "fadeOut"],
+                dismiss: {
+                    duration: 5000,
+                    onScreen: true
+                }
+            });
         } else if (this.props.LoginReducer.status === SUCCESS) {
             if (this.state.status === 'success') {
                 this.props.auth_action();
+                store.addNotification({
+                    title: "Success!",
+                    message: "Login Successful",
+                    type: "success",
+                    insert: "top",
+                    container: "top-right",
+                    animationIn: ["animated", "fadeIn"],
+                    animationOut: ["animated", "fadeOut"],
+                    dismiss: {
+                        duration: 5000,
+                        onScreen: true
+                    }
+                });
             } else {
-                console.log('login failed');
+                store.addNotification({
+                    title: "Error!",
+                    message: "Login Unsuccessful",
+                    type: "danger",
+                    insert: "top",
+                    container: "top-right",
+                    animationIn: ["animated", "fadeIn"],
+                    animationOut: ["animated", "fadeOut"],
+                    dismiss: {
+                        duration: 5000,
+                        onScreen: true
+                    }
+                });
             }
         } else if (this.props.AuthReducer.status === SUCCESS) {
-            if (this.state.status === 'success') { 
+            if (this.state.status === 'success') {
                 this.setState({
-                    loggedIn:true
-                }) 
-                this.props.history.push('/home') 
+                    loggedIn: true
+                })
+                this.props.history.push('/home')
             } else if (this.state.status === 'error') {
-                console.log('login error');
             }
         }
     }
 
     render() {
-        if (this.state.loggedIn=== true) {
+        if (this.state.loggedIn === true) {
             return <Redirect to="/home" />
         }
         const { username, password, submitted } = this.state;
         return (
             <div className="loginWrapper">
+                <ReactNotification />
                 <div className="container">
                     <div className="row">
                         <div className="col-sm-3"></div>
                         <div className="col-sm-6">
                             <div className="loginbox">
-                                <h1>PWA</h1>
-                                <h3>Catchpharse</h3>
                                 <div className="loginfield">
+                                    <h1>Login</h1>
                                     <form onSubmit={(event) => this.handleLoginForm(event)}>
                                         <div className={'form-group' + (submitted && !username ? ' has-error' : '')}>
                                             <input
@@ -137,12 +169,12 @@ class Login extends Component {
                                         </div>
                                         <div className="form-group">
                                             <button className="btnlogin">Log In</button>
-                                            
-                                            {this.state.isLoading===true ?
-                                            <span className="loader">
-                                                <img src={'./assets/images/ajax-loader.gif'} alt="loader" />
-                                            </span>
-                                            : '' }
+
+                                            {this.state.isLoading === true ?
+                                                <span className="loader">
+                                                    <img src={'./assets/images/ajax-loader.gif'} alt="loader" />
+                                                </span>
+                                                : ''}
 
                                         </div>
 
@@ -167,6 +199,7 @@ const mapStateToProps = state => {
     return {
         LoginReducer: state.LoginReducer,
         AuthReducer: state.AuthReducer,
+        ResetStateReducer: state.ResetStateReducer,
     };
 };
-export default connect(mapStateToProps, { LoginAction, auth_action })(Login);
+export default connect(mapStateToProps, { LoginAction, auth_action, ResetStateAction })(Login);

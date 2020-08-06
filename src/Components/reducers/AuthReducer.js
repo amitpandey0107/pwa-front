@@ -2,7 +2,6 @@ import { LOADING, SUCCESS, ERROR, RELOADING, NONE } from '../constants/misc';
 import { AUTH_LOADING, AUTH_FAIL, AUTH_SUCCEED, AUTH_RELOAD } from '../constants/reduxConstants';
 
 export default function AuthReducer(state = {}, action) {
-  console.log('Action in reducers auth', action)
   switch (action.type) {
 
     case AUTH_FAIL:
@@ -15,14 +14,12 @@ export default function AuthReducer(state = {}, action) {
       return Object.assign({}, state, { status: LOADING });
 
     case AUTH_SUCCEED:
-      // console.log('AUTH_SUCCEED');
       return Object.assign({}, state, { status: SUCCESS, value: action.payload });
 
     case AUTH_RELOAD:
       return Object.assign({}, state, { status: RELOADING, value: action.payload });
 
     default:
-      // return state;
       return Object.assign({}, state, { status: NONE });
   }
 }

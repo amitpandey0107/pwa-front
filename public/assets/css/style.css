@@ -50,6 +50,9 @@ body{
     width: 65%;
 
 }
+.loginfield h1{
+    margin-bottom: 50px;
+}
 .registerWrap .loginbox{
     padding: 10px 60px;
 }
@@ -235,4 +238,16 @@ body{
     position: absolute;
     right: -41px;
     top: 7px;
+}
+
+.loader2 {
+    text-align: center;
+    position: absolute;
+    left: 50%;
+    top: 35%;
+    transform: translate(50%, -50%);
+}
+.registerWrap {
+    height: 100% !important;
+    padding-bottom: 100px;
 }

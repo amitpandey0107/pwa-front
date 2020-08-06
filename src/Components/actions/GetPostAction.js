@@ -1,8 +1,7 @@
 import {} from '../constants/reduxConstants';
 import axios from 'axios';
-import { api_live_url as API_URL, api_base_url_local as LOCAL_URL } from '../../app.json';
+import { api_live_url as API_URL} from '../../app.json';
 import { GET_POST_LOADING, GET_POST_FAIL, GET_POST_SUCCEED,  } from '../constants/reduxConstants';
-import { AsyncStorage } from 'AsyncStorage';
 
 
 
@@ -24,28 +23,26 @@ const apiError = (payload) => ({
 
 export const GetPostAction = () => async (dispatchEvent) => {       
     dispatchEvent(apiLoading());   
-    var bodyFormData = new FormData();
-    let token  = localStorage.getItem('Token');
-    // bodyFormData.append('user_id', id);  
-    // AsyncStorage.getItem('Token').then((token) => {        
+    let token  = localStorage.getItem('Token');       
         try {
-            console.log('TOKEN=>',token)
+            const proxyurl = "https://cors-anywhere.herokuapp.com/";
+            const method = 'get';
+            const url = API_URL + "getallpost";
             axios({
-                method: 'get',
-                url: API_URL + "getallpost",
+                mode: 'no-cors',
+                method,
+                url: proxyurl + url,
                 headers: {                                    
                     'Authorization': 'Bearer ' + token,
                     'Content-Type': 'application/x-www-form-urlencoded'                
                 }
             }).then((response) => {
-                console.log('ACTION=>', response)
                 if (response.data.status_code === 200) {
                     dispatchEvent(apiSucceed(response));
                 } else {
                     dispatchEvent(apiError(response));
                 }
             }).catch((error) => {
-                console.log('ACTION ERROR=>', error)
                 dispatchEvent(apiError(error));
 
             })

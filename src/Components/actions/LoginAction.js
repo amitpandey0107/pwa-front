@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { api_live_url as API_URL, api_base_url_local as LOCAL_URL } from '../../app.json';
+import { api_live_url as API_URL} from '../../app.json';
 import { LOGIN_LOADING, LOGIN_ERROR, LOGIN_SUCCESS, AUTH_LOADING, AUTH_FAIL, AUTH_SUCCEED } from '../constants/reduxConstants';
 
 
@@ -40,8 +40,11 @@ const authError = (payload) => ({
 export const LoginAction = (username, password) => async (dispatchEvent) => {
     dispatchEvent(apiLoading());
     try {
-        axios.post(API_URL + "login",
+        const proxyurl = "https://cors-anywhere.herokuapp.com/";        
+        const url = API_URL + "login";
+            axios.post(proxyurl + url,
             {
+                mode: 'no-cors',
                 headers: {
                     'Access-Control-Allow-Origin': true,
                 },
@@ -73,10 +76,10 @@ export const auth_action = () => async (dispatchEvent) => {
         var UserId = await localStorage.getItem('UserId');
         var userRole = await localStorage.getItem('role');
         if (userRole === null) {
-            console.log('userRole null', userRole);
+            // console.log('userRole null', userRole);
             dispatchEvent(authError({ error: "Please login", message: "please login" }));
         } else {
-            console.log('userRole success', userRole);
+            // console.log('userRole success', userRole);
             dispatchEvent(authSucceed({ userToken: userToken, userRole: userRole, UserId: UserId, message: "Success" }));
         }
     } catch (error) {
